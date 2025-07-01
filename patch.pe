@@ -1,0 +1,26 @@
+// docs: https://fontforge.org/docs/scripting/scripting-alpha.html
+// langid: https://winprotocoldoc.z19.web.core.windows.net/MS-LCID/%5bMS-LCID%5d.pdf
+// nameid: https://learn.microsoft.com/en-us/typography/opentype/spec/name
+// 0x809 Eng UK
+// 0x409 Eng US
+
+version = "3.4.0"
+weights = ["", "Bold", "ExtraLight", "Light", "Medium", "SemiBold", "Thin"]
+
+i = 0
+while (i < 7)
+  weight = weights[i]
+  input = "VictorMonoNerdFontMono-" + weight + "Oblique.ttf"
+  output = "VictorMonoNerdFontMono-" + weight + "Italic.ttf"
+  Open(input)
+  SetFontNames("VictorMonoNFM-" + weight + "Italic", "VictorMono NFM", "VictorMono NFM " + weight + " Italic")
+  SetTTFName(0x809, 17, "")
+  SetTTFName(0x409, 17, "")
+  SetTTFName(0x409, 3, "VictorMono NFM " + weight + " Italic " + version)
+
+  Generate(output)
+  Close()
+  i++
+endloop
+
+Quit()
