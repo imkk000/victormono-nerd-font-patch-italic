@@ -5,22 +5,36 @@
 // 0x409 Eng US
 
 version = "3.4.0"
+longTypes = ["", "Mono", "Propo"]
+ shortTypes = ["", "M", "P"]
 weights = ["", "Bold", "ExtraLight", "Light", "Medium", "SemiBold", "Thin"]
 
-i = 0
-while (i < 7)
-  weight = weights[i]
-  input = "VictorMonoNerdFontMono-" + weight + "Oblique.ttf"
-  output = "VictorMonoNerdFontMono-" + weight + "Italic.ttf"
-  Open(input)
-  SetFontNames("VictorMonoNFM-" + weight + "Italic", "VictorMono NFM", "VictorMono NFM " + weight + " Italic")
-  SetTTFName(0x809, 17, "")
-  SetTTFName(0x409, 17, "")
-  SetTTFName(0x409, 3, "VictorMono NFM " + weight + " Italic " + version)
+o = 0
+while (o < 3)
+  lt = longTypes[o]
+  st = shortTypes[o]
+  i = 0
+  while (i < 7)
+    weight = weights[i]
+    input = "VictorMonoNerdFont" + lt + "-" + weight + "Oblique.ttf"
+    output = "VictorMonoNerdFont" + lt + "-" + weight + "Italic.ttf"
+    Open(input)
 
-  Generate(output)
-  Close()
-  i++
+    wsp = weight
+    if (weight != "")
+      wsp = " " + weight
+    endif
+
+    SetFontNames("VictorMonoNF" + st + "-" + weight + "Italic", "VictorMono NF" + st, "VictorMono NF" + st + wsp + " Italic")
+    SetTTFName(0x809, 17, "")
+    SetTTFName(0x409, 17, "")
+    SetTTFName(0x409, 3, "VictorMono NF" + st + wsp + " Italic " + version)
+
+    Generate(output)
+    Close()
+    i++
+  endloop
+o++
 endloop
 
 Quit()
